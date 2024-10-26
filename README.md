@@ -12,7 +12,7 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
   "fnune/codeactions-on-save.nvim",
   config = function()
     local cos = require("codeactions-on-save.nvim")
-    cos.register("*.tsx", "source.organizeImports.biome")
+    cos.register({ "*.ts", "*.tsx" }, "source.organizeImports.biome")
   end
 }
 ```
