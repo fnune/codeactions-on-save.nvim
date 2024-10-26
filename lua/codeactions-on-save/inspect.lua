@@ -1,3 +1,7 @@
+---@alias Inspect fun(): nil
+
+---@class CodeActionsOnSaveInspect
+---@field register Inspect
 local M = {}
 
 function M.inspect()

@@ -12,9 +12,16 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
   "fnune/codeactions-on-save.nvim",
   config = function()
     local cos = require("codeactions-on-save.nvim")
-    cos.register({ "*.ts", "*.tsx" }, "source.organizeImports.biome")
+    cos.register({ "*.py" }, { "source.organizeImports" })
+    cos.register({ "*.ts", "*.tsx" }, { "source.organizeImports.biome", "source.fixAll" })
   end
 }
+```
+
+The default timeout for code actions is 100ms. You can pass anything else if necessary, in `ms`:
+
+```lua
+cos.register({ "*.ts" }, { "source.organizeImports" }, 3000)
 ```
 
 ## Inspecting code actions
