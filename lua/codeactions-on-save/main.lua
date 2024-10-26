@@ -24,7 +24,8 @@ local function run(action_kind)
         elseif action.command then
           vim.lsp.buf.execute_command(action.command)
         else
-          vim.notify("Action '" .. action.title .. "' has no command or edit", vim.log.levels.ERROR)
+          -- Last resort: apply the code action noisily
+          vim.lsp.buf.code_action({ context = { only = { action_kind } }, apply = true })
         end
         return
       end
