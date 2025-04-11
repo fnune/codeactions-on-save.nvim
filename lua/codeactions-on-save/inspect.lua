@@ -5,7 +5,7 @@
 local M = {}
 
 function M.inspect()
-  local params = vim.lsp.util.make_range_params()
+  local params = vim.lsp.util.make_range_params(0, "utf-8")
   params.context = { diagnostics = {} }
 
   local results = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 100)
