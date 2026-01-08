@@ -7,6 +7,7 @@ local main = require("codeactions-on-save.main")
 local inspect = require("codeactions-on-save.inspect")
 
 M.register = main.register
+M.handle_write_pre = main.handle_write_pre
 M.inspect = inspect.inspect
 
 return M
