@@ -41,7 +41,7 @@ end
 ---@param timeout_ms ActionTimeoutMs
 local function handle_write_pre(kinds, buf, timeout_ms)
   local params = vim.lsp.util.make_range_params(0, "utf-8")
-  params.context = { diagnostics = {} }
+  params.context = { diagnostics = {}, only = kinds }
 
   local results = vim.lsp.buf_request_sync(buf, "textDocument/codeAction", params, timeout_ms)
   if not results then
