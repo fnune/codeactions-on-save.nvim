@@ -59,6 +59,8 @@ local function handle_write_pre(kinds, buf, timeout_ms)
   end
 end
 
+M.handle_write_pre = handle_write_pre
+
 function M.register(pattern, kinds, timeout_ms)
   vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = pattern,
