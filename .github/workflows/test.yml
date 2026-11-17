@@ -5,26 +5,27 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
       matrix:
         neovim: ["v0.11.0", "stable", "nightly"]
+    env:
+      NVIM_VERSION: ${{ matrix.neovim }}
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: rhysd/action-setup-vim@v1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          neovim: true
-          version: ${{ matrix.neovim }}
-
-      - name: Cache plenary
-        uses: actions/cache@v4
+          persist-credentials: false
+      - uses: fnune/ci@395771a1db7789d50e1070d49e746465de179042
         with:
-          path: .tests/plenary.nvim
-          key: plenary-${{ runner.os }}
-
-      - name: Run tests
-        run: make test
+          env: NVIM_VERSION
+          apt-packages: make
+          cache-paths: ./.tests/plenary.nvim
+          command: |
+            curl -fsSL "https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux-x86_64.tar.gz" | tar -xz -C "$HOME"
+            PATH="$HOME/nvim-linux-x86_64/bin:$PATH" make test
